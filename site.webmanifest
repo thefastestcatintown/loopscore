@@ -2,14 +2,14 @@
   "name": "Loopscore",
   "short_name": "Loopscore",
   "description": "Digitale Scorecard für Adventure-Golf-Anlagen.",
-  "start_url": "/loopscore/",
-  "scope": "/loopscore/",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#f2f2e9",
   "theme_color": "#234d39",
   "icons": [
     {
-      "src": "/loopscore/assets/adventure-golf/logo/app-icon-512.png",
+      "src": "/assets/adventure-golf/logo/app-icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"

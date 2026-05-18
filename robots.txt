@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://thefastestcatintown.github.io/loopscore/sitemap.xml
+Sitemap: https://loopscore.app/sitemap.xml
