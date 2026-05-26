@@ -1,0 +1,36 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  title: string;
+  text: string;
+  icon: string;
+  bullets?: string[];
+}
+
+const { title, text, icon, bullets } = Astro.props as Props;
+const textLines = text.split("\n");
+---
+
+<article class="value-card">
+  <span class="value-card__icon" aria-hidden="true">
+    <Icon name={icon} />
+    <Icon name={`${icon}-filled`} class="value-card__icon-filled" />
+  </span>
+  <h3>{title}</h3>
+  <p>
+    {
+      textLines.map((line, index) => (
+        <>
+          {index > 0 && <br />}
+          {line}
+        </>
+      ))
+    }
+  </p>
+  {bullets && bullets.length > 0 && (
+    <ul>
+      {bullets.map((bullet) => <li>{bullet}</li>)}
+    </ul>
+  )}
+</article>

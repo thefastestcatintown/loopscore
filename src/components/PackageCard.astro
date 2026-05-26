@@ -1,0 +1,61 @@
+---
+import { getContactFormHref } from "../lib/contact";
+
+interface Props {
+  name: string;
+  demoType?: string;
+  subtitle: string;
+  decisionLabel?: string;
+  description: string;
+  setupPrice: string;
+  monthlyPrice: string;
+  features: string[];
+  highlighted?: boolean;
+}
+
+const {
+  name,
+  demoType = "demo",
+  subtitle,
+  decisionLabel,
+  description,
+  setupPrice,
+  monthlyPrice,
+  features,
+  highlighted = false,
+} = Astro.props as Props;
+---
+
+<a
+  class:list={["package-card", highlighted && "package-card--highlight"]}
+  href={getContactFormHref(demoType)}
+  aria-label={`${name} Paket anfragen`}
+>
+  {highlighted && <p class="package-card__badge">Empfohlen</p>}
+  <div class="package-card__header">
+    <div>
+      <h3>{name}</h3>
+      <p>{subtitle}</p>
+    </div>
+  </div>
+  {decisionLabel && <p class="package-card__decision">{decisionLabel}</p>}
+  <p class="package-card__description">{description}</p>
+  <div class="package-card__pricing" aria-label={`${name} Preise`}>
+    <div>
+      <strong>{setupPrice}</strong>
+      <span>Einrichtung</span>
+    </div>
+    <div>
+      <strong>{monthlyPrice}</strong>
+      <span>/ Monat</span>
+    </div>
+  </div>
+  <ul>
+    {
+      features.map((feature, index) => (
+        <li class:list={[index === 0 && "package-card__feature-label"]}>{feature}</li>
+      ))
+    }
+  </ul>
+  <span class="button button--outline" aria-hidden="true">Paket anfragen</span>
+</a>

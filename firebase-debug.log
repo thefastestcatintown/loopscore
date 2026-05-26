@@ -1,0 +1,184 @@
+[debug] [2026-05-22T08:56:55.534Z] ----------------------------------------------------------------------
+[debug] [2026-05-22T08:56:55.538Z] Command:       /opt/homebrew/Cellar/node/24.10.0/bin/node /opt/homebrew/bin/firebase functions:secrets:access RESEND_API_KEY --project adventuregolf-d186c
+[debug] [2026-05-22T08:56:55.539Z] CLI Version:   15.7.0
+[debug] [2026-05-22T08:56:55.539Z] Platform:      darwin
+[debug] [2026-05-22T08:56:55.539Z] Node Version:  v24.10.0
+[debug] [2026-05-22T08:56:55.539Z] Time:          Fri May 22 2026 10:56:55 GMT+0200 (Central European Summer Time)
+[debug] [2026-05-22T08:56:55.539Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-05-22T08:56:55.562Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-05-22T08:56:55.563Z] > authorizing via signed-in user (christopher.eschenbecher@googlemail.com)
+[debug] [2026-05-22T08:56:55.564Z] Checked if tokens are valid: false, expires at: 1779439573622
+[debug] [2026-05-22T08:56:55.564Z] Checked if tokens are valid: false, expires at: 1779439573622
+[debug] [2026-05-22T08:56:55.564Z] > refreshing access token with scopes: []
+[debug] [2026-05-22T08:56:55.566Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-05-22T08:56:55.566Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-05-22T08:56:55.717Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-05-22T08:56:55.717Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-05-22T08:56:55.735Z] >>> [apiv2][query] GET https://secretmanager.googleapis.com/v1/projects/adventuregolf-d186c/secrets/RESEND_API_KEY/versions/latest:access [none]
+[debug] [2026-05-22T08:56:56.050Z] <<< [apiv2][status] GET https://secretmanager.googleapis.com/v1/projects/adventuregolf-d186c/secrets/RESEND_API_KEY/versions/latest:access 404
+[debug] [2026-05-22T08:56:56.051Z] <<< [apiv2][body] GET https://secretmanager.googleapis.com/v1/projects/adventuregolf-d186c/secrets/RESEND_API_KEY/versions/latest:access {"error":{"code":404,"message":"Secret [projects/727884225956/secrets/RESEND_API_KEY] not found or has no versions.","status":"NOT_FOUND"}}
+[error] 
+[error] Error: Request to https://secretmanager.googleapis.com/v1/projects/adventuregolf-d186c/secrets/RESEND_API_KEY/versions/latest:access had HTTP Error: 404, Secret [projects/727884225956/secrets/RESEND_API_KEY] not found or has no versions.
+[debug] [2026-05-22T08:56:56.158Z] Error Context: {
+  "body": {
+    "error": {
+      "code": 404,
+      "message": "Secret [projects/727884225956/secrets/RESEND_API_KEY] not found or has no versions.",
+      "status": "NOT_FOUND"
+    }
+  },
+  "response": {
+    "statusCode": 404
+  }
+}
+[debug] [2026-05-22T08:57:34.931Z] ----------------------------------------------------------------------
+[debug] [2026-05-22T08:57:34.933Z] Command:       /opt/homebrew/Cellar/node/24.10.0/bin/node /opt/homebrew/bin/firebase projects:list
+[debug] [2026-05-22T08:57:34.933Z] CLI Version:   15.7.0
+[debug] [2026-05-22T08:57:34.933Z] Platform:      darwin
+[debug] [2026-05-22T08:57:34.933Z] Node Version:  v24.10.0
+[debug] [2026-05-22T08:57:34.933Z] Time:          Fri May 22 2026 10:57:34 GMT+0200 (Central European Summer Time)
+[debug] [2026-05-22T08:57:34.933Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-05-22T08:57:34.938Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-05-22T08:57:34.938Z] > authorizing via signed-in user (christopher.eschenbecher@googlemail.com)
+[debug] [2026-05-22T08:57:34.940Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T08:57:34.940Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T08:57:34.940Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[debug] [2026-05-22T08:57:35.514Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2026-05-22T08:57:35.514Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] ┌───────────────────────────┬───────────────────────────┬────────────────┬──────────────────────┐
+│ Project Display Name      │ Project ID                │ Project Number │ Resource Location ID │
+├───────────────────────────┼───────────────────────────┼────────────────┼──────────────────────┤
+│ adventureGolf             │ adventuregolf-d186c       │ 727884225956   │ [Not specified]      │
+├───────────────────────────┼───────────────────────────┼────────────────┼──────────────────────┤
+│ loopscore                 │ loopscore                 │ 808841716777   │ [Not specified]      │
+├───────────────────────────┼───────────────────────────┼────────────────┼──────────────────────┤
+│ mro-app-20251031-chris    │ mro-app-20251031-chris    │ 191610479755   │ [Not specified]      │
+├───────────────────────────┼───────────────────────────┼────────────────┼──────────────────────┤
+│ privatesProjektmanagement │ privatesprojektmanagement │ 951970129995   │ [Not specified]      │
+└───────────────────────────┴───────────────────────────┴────────────────┴──────────────────────┘
+[info] 
+[info] 4 project(s) total.
+[debug] [2026-05-22T08:57:58.543Z] ----------------------------------------------------------------------
+[debug] [2026-05-22T08:57:58.545Z] Command:       /opt/homebrew/Cellar/node/24.10.0/bin/node /opt/homebrew/bin/firebase functions:list --project loopscore
+[debug] [2026-05-22T08:57:58.545Z] CLI Version:   15.7.0
+[debug] [2026-05-22T08:57:58.545Z] Platform:      darwin
+[debug] [2026-05-22T08:57:58.545Z] Node Version:  v24.10.0
+[debug] [2026-05-22T08:57:58.545Z] Time:          Fri May 22 2026 10:57:58 GMT+0200 (Central European Summer Time)
+[debug] [2026-05-22T08:57:58.545Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-05-22T08:57:58.590Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-05-22T08:57:58.591Z] > authorizing via signed-in user (christopher.eschenbecher@googlemail.com)
+[debug] [2026-05-22T08:57:58.591Z] [iam] checking project loopscore for permissions ["cloudfunctions.functions.list","firebase.projects.get","run.services.list"]
+[debug] [2026-05-22T08:57:58.592Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T08:57:58.592Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T08:57:58.592Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/loopscore:testIamPermissions [none]
+[debug] [2026-05-22T08:57:58.592Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/loopscore:testIamPermissions  x-goog-user-project=loopscore
+[debug] [2026-05-22T08:57:58.592Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/loopscore:testIamPermissions {"permissions":["cloudfunctions.functions.list","firebase.projects.get","run.services.list"]}
+[debug] [2026-05-22T08:57:59.340Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/loopscore:testIamPermissions 200
+[debug] [2026-05-22T08:57:59.340Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/loopscore:testIamPermissions {"permissions":["cloudfunctions.functions.list","firebase.projects.get","run.services.list"]}
+[debug] [2026-05-22T08:57:59.340Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T08:57:59.340Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T08:57:59.340Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/loopscore/locations/-/functions [none]
+[debug] [2026-05-22T08:57:59.517Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/loopscore/locations/-/functions 403
+[debug] [2026-05-22T08:57:59.517Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/loopscore/locations/-/functions {"error":{"code":403,"message":"Cloud Functions API has not been used in project loopscore before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/cloudfunctions.googleapis.com/overview?project=loopscore then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.","status":"PERMISSION_DENIED","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"SERVICE_DISABLED","domain":"googleapis.com","metadata":{"containerInfo":"loopscore","service":"cloudfunctions.googleapis.com","consumer":"projects/loopscore","activationUrl":"https://console.developers.google.com/apis/api/cloudfunctions.googleapis.com/overview?project=loopscore","serviceTitle":"Cloud Functions API"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"Cloud Functions API has not been used in project loopscore before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/cloudfunctions.googleapis.com/overview?project=loopscore then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Google developers console API activation","url":"https://console.developers.google.com/apis/api/cloudfunctions.googleapis.com/overview?project=loopscore"}]}]}}
+[debug] [2026-05-22T08:57:59.519Z] [functions] failed to list functions for loopscore
+[debug] [2026-05-22T08:57:59.519Z] [functions] Request to https://cloudfunctions.googleapis.com/v1/projects/loopscore/locations/-/functions had HTTP Error: 403, Cloud Functions API has not been used in project loopscore before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/cloudfunctions.googleapis.com/overview?project=loopscore then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+[debug] [2026-05-22T08:57:59.599Z] FirebaseError: Request to https://cloudfunctions.googleapis.com/v1/projects/loopscore/locations/-/functions had HTTP Error: 403, Cloud Functions API has not been used in project loopscore before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/cloudfunctions.googleapis.com/overview?project=loopscore then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+    at responseToError (/opt/homebrew/lib/node_modules/firebase-tools/lib/responseToError.js:53:12)
+    at RetryOperation._fn (/opt/homebrew/lib/node_modules/firebase-tools/lib/apiv2.js:330:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: Failed to list functions for loopscore
+[debug] [2026-05-22T09:03:13.402Z] ----------------------------------------------------------------------
+[debug] [2026-05-22T09:03:13.405Z] Command:       /opt/homebrew/Cellar/node/24.10.0/bin/node /opt/homebrew/bin/firebase deploy --only functions --project loopscore
+[debug] [2026-05-22T09:03:13.405Z] CLI Version:   15.7.0
+[debug] [2026-05-22T09:03:13.405Z] Platform:      darwin
+[debug] [2026-05-22T09:03:13.405Z] Node Version:  v24.10.0
+[debug] [2026-05-22T09:03:13.405Z] Time:          Fri May 22 2026 11:03:13 GMT+0200 (Central European Summer Time)
+[debug] [2026-05-22T09:03:13.405Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-05-22T09:03:16.210Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-05-22T09:03:16.211Z] > authorizing via signed-in user (christopher.eschenbecher@googlemail.com)
+[debug] [2026-05-22T09:03:16.211Z] [iam] checking project loopscore for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2026-05-22T09:03:16.212Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:16.212Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:16.212Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/loopscore:testIamPermissions [none]
+[debug] [2026-05-22T09:03:16.212Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/loopscore:testIamPermissions  x-goog-user-project=loopscore
+[debug] [2026-05-22T09:03:16.212Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/loopscore:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2026-05-22T09:03:17.127Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/loopscore:testIamPermissions 200
+[debug] [2026-05-22T09:03:17.128Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/loopscore:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2026-05-22T09:03:17.128Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:17.128Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:17.128Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/loopscore/serviceAccounts/loopscore@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2026-05-22T09:03:17.129Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/loopscore/serviceAccounts/loopscore@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2026-05-22T09:03:17.840Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/loopscore/serviceAccounts/loopscore@appspot.gserviceaccount.com:testIamPermissions 404
+[debug] [2026-05-22T09:03:17.840Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/loopscore/serviceAccounts/loopscore@appspot.gserviceaccount.com:testIamPermissions {"error":{"code":404,"message":"Unknown service account","status":"NOT_FOUND"}}
+[debug] [2026-05-22T09:03:17.841Z] [functions] service account IAM check errored, deploy may fail: Request to https://iam.googleapis.com/v1/projects/loopscore/serviceAccounts/loopscore@appspot.gserviceaccount.com:testIamPermissions had HTTP Error: 404, Unknown service account {"name":"FirebaseError","children":[],"context":{"body":{"error":{"code":404,"message":"Unknown service account","status":"NOT_FOUND"}},"response":{"statusCode":404}},"exit":1,"message":"Request to https://iam.googleapis.com/v1/projects/loopscore/serviceAccounts/loopscore@appspot.gserviceaccount.com:testIamPermissions had HTTP Error: 404, Unknown service account","status":404}
+[info] 
+[info] === Deploying to 'loopscore'...
+[info] 
+[info] i  deploying functions 
+[debug] [2026-05-22T09:03:17.846Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:17.846Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:17.846Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/cloudresourcemanager.googleapis.com [none]
+[debug] [2026-05-22T09:03:17.847Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/cloudresourcemanager.googleapis.com  x-goog-user-project=loopscore
+[debug] [2026-05-22T09:03:18.291Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/cloudresourcemanager.googleapis.com 200
+[debug] [2026-05-22T09:03:18.291Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/cloudresourcemanager.googleapis.com [omitted]
+[debug] [2026-05-22T09:03:18.298Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:18.298Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:18.298Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/loopscore [none]
+[debug] [2026-05-22T09:03:18.493Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/loopscore 200
+[debug] [2026-05-22T09:03:18.494Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/loopscore {"projectNumber":"808841716777","projectId":"loopscore","lifecycleState":"ACTIVE","name":"loopscore","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2026-05-22T07:57:55.233Z"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[debug] [2026-05-22T09:03:18.500Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:18.500Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:18.500Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:18.500Z] Checked if tokens are valid: true, expires at: 1779443814717
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[debug] [2026-05-22T09:03:18.501Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:18.501Z] Checked if tokens are valid: true, expires at: 1779443814717
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2026-05-22T09:03:18.502Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:18.502Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:18.503Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/cloudfunctions.googleapis.com [none]
+[debug] [2026-05-22T09:03:18.503Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/cloudfunctions.googleapis.com  x-goog-user-project=loopscore
+[debug] [2026-05-22T09:03:18.504Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/runtimeconfig.googleapis.com [none]
+[debug] [2026-05-22T09:03:18.504Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/runtimeconfig.googleapis.com  x-goog-user-project=loopscore
+[debug] [2026-05-22T09:03:18.507Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/cloudbuild.googleapis.com [none]
+[debug] [2026-05-22T09:03:18.507Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/cloudbuild.googleapis.com  x-goog-user-project=loopscore
+[debug] [2026-05-22T09:03:18.509Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/artifactregistry.googleapis.com [none]
+[debug] [2026-05-22T09:03:18.509Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/artifactregistry.googleapis.com  x-goog-user-project=loopscore
+[debug] [2026-05-22T09:03:18.911Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/cloudfunctions.googleapis.com 200
+[debug] [2026-05-22T09:03:18.912Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/cloudfunctions.googleapis.com [omitted]
+[warn] ⚠  functions: missing required API cloudfunctions.googleapis.com. Enabling now... 
+[debug] [2026-05-22T09:03:18.913Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:18.913Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:18.913Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/loopscore/services/cloudfunctions.googleapis.com:enable [none]
+[debug] [2026-05-22T09:03:18.914Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/loopscore/services/cloudfunctions.googleapis.com:enable  x-goog-user-project=loopscore
+[debug] [2026-05-22T09:03:19.482Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/runtimeconfig.googleapis.com 200
+[debug] [2026-05-22T09:03:19.483Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2026-05-22T09:03:19.491Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/artifactregistry.googleapis.com 200
+[debug] [2026-05-22T09:03:19.491Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/artifactregistry.googleapis.com [omitted]
+[warn] ⚠  artifactregistry: missing required API artifactregistry.googleapis.com. Enabling now... 
+[debug] [2026-05-22T09:03:19.492Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:19.492Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:19.492Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/loopscore/services/artifactregistry.googleapis.com:enable [none]
+[debug] [2026-05-22T09:03:19.492Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/loopscore/services/artifactregistry.googleapis.com:enable  x-goog-user-project=loopscore
+[debug] [2026-05-22T09:03:19.494Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/cloudbuild.googleapis.com 200
+[debug] [2026-05-22T09:03:19.494Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/loopscore/services/cloudbuild.googleapis.com [omitted]
+[warn] ⚠  functions: missing required API cloudbuild.googleapis.com. Enabling now... 
+[debug] [2026-05-22T09:03:19.494Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:19.494Z] Checked if tokens are valid: true, expires at: 1779443814717
+[debug] [2026-05-22T09:03:19.494Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/loopscore/services/cloudbuild.googleapis.com:enable [none]
+[debug] [2026-05-22T09:03:19.495Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/loopscore/services/cloudbuild.googleapis.com:enable  x-goog-user-project=loopscore
+[debug] [2026-05-22T09:03:19.588Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/loopscore/services/cloudfunctions.googleapis.com:enable 200
+[debug] [2026-05-22T09:03:19.588Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/loopscore/services/cloudfunctions.googleapis.com:enable [omitted]
+[debug] [2026-05-22T09:03:19.808Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/loopscore/services/artifactregistry.googleapis.com:enable 400
+[debug] [2026-05-22T09:03:19.809Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/loopscore/services/artifactregistry.googleapis.com:enable [omitted]
+[error] 
+[error] Error: Your project loopscore must be on the Blaze (pay-as-you-go) plan to complete this command. Required API artifactregistry.googleapis.com can't be enabled until the upgrade is complete. To upgrade, visit the following URL:
+
+https://console.firebase.google.com/project/loopscore/usage/details

@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { demoMailto } from "../lib/contact";
+import { withBase } from "../lib/paths";
+
+---
+
+<BaseLayout
+  title="Seite nicht gefunden | Loopscore"
+  description="Diese Loopscore-Seite wurde nicht gefunden."
+  noindex
+>
+  <section class="legal-page error-page">
+    <p class="eyebrow">404</p>
+    <h1>Seite nicht gefunden</h1>
+    <div class="legal-card">
+      <p>
+        Die angeforderte Seite existiert nicht oder wurde verschoben.
+      </p>
+      <p>
+        <a class="button" href={withBase("/")}>Zur Startseite</a>
+        <a class="button button--outline" href={demoMailto}>Kontakt aufnehmen</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

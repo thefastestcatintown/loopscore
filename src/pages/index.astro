@@ -1,0 +1,667 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AppMockup from "../components/AppMockup.astro";
+import FaqItem from "../components/FaqItem.astro";
+import Icon from "../components/Icon.astro";
+import PackageCard from "../components/PackageCard.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import SliderControls from "../components/SliderControls.astro";
+import ValueCard from "../components/ValueCard.astro";
+import {
+  brandChips,
+  faqs,
+  journeySteps,
+  packages,
+  pilotPartnerCta,
+  processSteps,
+  processTriggers,
+  valueCards,
+} from "../data/landing";
+import {
+  contactEmail,
+  contactFormEndpoint,
+  contactFormSubject,
+  getContactFormHref,
+} from "../lib/contact";
+import { withBase } from "../lib/paths";
+
+---
+
+<BaseLayout>
+  <section id="top" class="hero-section">
+    <img
+      class="hero-background-image"
+      src={withBase("/assets/adventure-golf/animation/hero-flat-flag.jpg")}
+      alt=""
+      aria-hidden="true"
+      width="1774"
+      height="887"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+
+    <div class="hero-section__content">
+      <h1>Die digitale Scorecard für moderne Adventure-Golf-Anlagen</h1>
+      <div class="hero-section__actions">
+        <a class="button button--ghost" href="#vorteile">Mehr erfahren</a>
+      </div>
+    </div>
+
+    <div class="hero-section__visual">
+      <AppMockup />
+    </div>
+  </section>
+
+  <section id="erlebnis" class="section section--split is-hidden-section">
+    <div>
+      <SectionIntro
+        title="Liebevoll gestaltete Anlagen verdienen mehr als Papierzettel."
+        text="Adventure-Golf-Anlagen sind thematisch, detailreich und modern. Die Scorecard ist oft noch analog. Die App bringt das Spielerlebnis genau dorthin, wo Gäste ohnehin sind: auf ihr Smartphone."
+      />
+    </div>
+    <div class="comparison-grid" aria-label="Vergleich Papier-Scorecard und digitale Scorecard">
+      <article class="comparison-card comparison-card--paper">
+        <Icon name="papierlos-dokument-off" class="comparison-card__icon" />
+        <h3>Papier-Scorecard</h3>
+        <ul>
+          <li>Zettel & Stift</li>
+          <li>geht schnell verloren</li>
+          <li>keine digitale Erinnerung</li>
+          <li>keine Reichweite nach dem Besuch</li>
+        </ul>
+      </article>
+      <article class="comparison-card comparison-card--digital">
+        <span class="comparison-card__ribbon">Besser für Gäste & Betreiber</span>
+        <Icon name="app-mobile" class="comparison-card__icon" />
+        <h3>Digitale Scorecard</h3>
+        <ul>
+          <li>direkt auf dem Smartphone</li>
+          <li>Runden speichern</li>
+          <li>Scorecard teilen</li>
+          <li>Branding bleibt sichtbar</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="vorteile" class="section section--muted value-section">
+    <SectionIntro
+      title="Ein Produkt. Drei Mehrwerte."
+      align="center"
+    />
+    <div class="value-grid">
+      {valueCards.map((card) => <ValueCard {...card} />)}
+    </div>
+  </section>
+
+  <section id="runde" class="section journey-section" data-journey-slider>
+    <div class="journey-slider">
+      <div class="journey-slider__intro">
+        <h2>So erleben Gäste Loopscore vor Ort</h2>
+      </div>
+      <div class="journey-slider__viewport">
+        {
+          journeySteps.map((step, index) => (
+            <article
+              class:list={["journey-slider__slide", index === 0 && "is-active"]}
+              data-journey-slide={String(index)}
+              hidden={index !== 0}
+            >
+              <span class="journey-slider__number">{String(index + 1).padStart(2, "0")}</span>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </article>
+          ))
+        }
+      </div>
+      <SliderControls
+        items={journeySteps}
+        className="journey-slider__dots"
+        dotAttribute="data-journey-dot"
+        toggleAttribute="data-journey-toggle"
+        label="Gäste Journey auswählen"
+        toggleLabel="Journey-Slider pausieren"
+        itemLabel={(step) => `${step.title} anzeigen`}
+      />
+    </div>
+  </section>
+
+  <section class="section brand-section is-hidden-section" data-brand-preview>
+    <div class="brand-section__copy">
+      <SectionIntro
+        title="Die App im Look deiner Anlage."
+        text="Logo, Farben, Bahn-Namen, Illustrationen und Inhalte werden so angepasst, dass sich die App wie ein natürlicher Teil deiner Anlage anfühlt."
+      />
+      <div class="brand-feature-grid">
+        {
+          brandChips.map((chip, index) => (
+            <button
+              type="button"
+              class:list={[index === 0 && "is-active"]}
+              data-brand-chip
+              data-brand-image={withBase(chip.image)}
+              data-brand-alt={chip.alt}
+              aria-pressed={index === 0 ? "true" : "false"}
+            >
+              <i><Icon name={chip.icon} /></i>{chip.label}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+    <div class="brand-visual">
+      <div class="brand-phone-shell">
+        <img
+          src={withBase(brandChips[0].image)}
+          alt={brandChips[0].alt}
+          width="1419"
+          height="2796"
+          loading="lazy"
+          decoding="async"
+          data-brand-phone
+        />
+      </div>
+    </div>
+    <script>
+      const brandPreview = document.querySelector<HTMLElement>("[data-brand-preview]");
+
+      if (brandPreview) {
+        const phone = brandPreview.querySelector<HTMLImageElement>("[data-brand-phone]");
+        const chips = Array.from(brandPreview.querySelectorAll<HTMLButtonElement>("[data-brand-chip]"));
+
+        chips.forEach((chip) => {
+          chip.addEventListener("click", () => {
+            const nextImage = chip.dataset.brandImage;
+            if (!phone || !nextImage || phone.src.endsWith(nextImage)) return;
+
+            chips.forEach((item) => {
+              const isActive = item === chip;
+              item.classList.toggle("is-active", isActive);
+              item.setAttribute("aria-pressed", String(isActive));
+            });
+
+            phone.classList.add("is-switching");
+
+            window.setTimeout(() => {
+              phone.src = nextImage;
+              phone.alt = chip.dataset.brandAlt ?? "Loopscore App Vorschau";
+              phone.classList.remove("is-switching");
+            }, 120);
+          });
+        });
+      }
+    </script>
+  </section>
+
+  <section id="pakete" class="section package-section">
+    <SectionIntro
+      title="Drei Einstiege, passend zu deiner Anlage."
+    />
+    <div class="package-grid">
+      {packages.map((item) => <PackageCard {...item} />)}
+    </div>
+    <article id="pilot-werden" class="pilot-partner-card">
+      <div class="pilot-partner-card__content">
+        <span class="pilot-partner-card__badge">★ {pilotPartnerCta.badge}</span>
+        <div class="pilot-partner-card__copy">
+          <h3>{pilotPartnerCta.title}</h3>
+          <p>{pilotPartnerCta.text}</p>
+        </div>
+        <ul class="pilot-partner-card__list">
+          {pilotPartnerCta.bullets.map((bullet) => <li>{bullet}</li>)}
+        </ul>
+        <a class="button button--outline" href={getContactFormHref("pilotpartner")}>
+          {pilotPartnerCta.buttonLabel}
+        </a>
+      </div>
+      <figure class="pilot-partner-card__visual" aria-hidden="true">
+        <img
+          src={withBase(pilotPartnerCta.image)}
+          alt={pilotPartnerCta.imageAlt}
+          width="1774"
+          height="887"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </article>
+    <p class="package-note">
+      Alle Pakete werden individuell auf Anlage, Umfang und gewünschte
+      Anpassungen abgestimmt. Preise verstehen sich zzgl. MwSt. und können je
+      nach gewünschtem Umfang variieren.
+    </p>
+  </section>
+
+  <section id="ablauf-original" class="section section--muted is-hidden-section">
+    <SectionIntro
+      title="Vom ersten Gespräch zum QR-Code vor Ort."
+      text="Der Einstieg bleibt einfach: besprechen, anpassen, QR-Code platzieren und Gäste starten lassen."
+      align="center"
+    />
+    <ol class="process-list">
+      {
+        processSteps.map((step) => (
+          <li class:list={[step.final && "process-list__final"]}>
+            <span class="process-list__number">{step.number}</span>
+            <span class="process-list__icon" aria-hidden="true">
+              <Icon name={step.icon} />
+            </span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+    <div class="process-trust-row" aria-label="Ablauf Vorteile">
+      <span><i><Icon name="spieler-team" /></i>Persönlich begleitet</span>
+      <span><i><Icon name="einstellungen" /></i>Individuell angepasst</span>
+      <span><i><Icon name="kalender-start" /></i>Schnell einsatzbereit</span>
+      <span><i><Icon name="app-mobile" /></i>Kein eigener Entwicklungsaufwand</span>
+    </div>
+  </section>
+
+  <section id="ablauf" class="section proof-faq-section">
+    <div class="proof-faq-grid">
+      <div class="process-slider-card" data-process-switcher>
+        <h3 class="process-slider-card__headline">
+          So kommt Loopscore auch zu euch auf die Anlage
+        </h3>
+        <div class="process-slider">
+          <div class="process-slider__viewport">
+            <div class="process-slider__track">
+              {
+                processSteps.map((step, index) => (
+                  <article
+                    class:list={["process-slider__slide", index === 0 && "is-active"]}
+                    data-process-card={String(index)}
+                    hidden={index !== 0}
+                  >
+                    <span class="process-slider__step">{String(index + 1).padStart(2, "0")}</span>
+                    <h4>{step.title}</h4>
+                    <p>{step.text}</p>
+                  </article>
+                ))
+              }
+            </div>
+          </div>
+          <SliderControls
+            items={processTriggers}
+            className="process-slider__dots"
+            dotAttribute="data-process-tab"
+            toggleAttribute="data-process-toggle"
+            label="Ablauf auswählen"
+            toggleLabel="Ablauf-Slider pausieren"
+            itemLabel={(step, index) => `Schritt ${index + 1}: ${step.label}`}
+          />
+        </div>
+      </div>
+      <div class="reference-card reference-card--compact is-hidden-section">
+        <p class="reference-card__label">Use Case</p>
+        <h3>Loopscore</h3>
+        <p>
+          Ein reales Beispiel für digitale Scorecard, individuellen Look und
+          teilbare Ergebnisse auf 18 Bahnen.
+        </p>
+        <div class="reference-card__body">
+          <div class="reference-visual" aria-hidden="true">
+            <img
+              src={withBase("/res/adventure-golf-hero-assets/phone-home-overview-cutout.png")}
+              alt=""
+              width="1086"
+              height="1448"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="reference-score-bubble">
+              <img
+                src={withBase("/res/adventure-golf-hero-assets/phone-scorecard-sponsor-cutout.png")}
+                alt=""
+                width="1086"
+                height="1448"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="faq" class="faq-panel">
+        <h3>Häufige Fragen</h3>
+        <p>
+          Alles, was Betreiber vor dem ersten Gespräch wissen möchten.
+        </p>
+        <div class="faq-list">
+          {faqs.map((item) => <FaqItem {...item} />)}
+        </div>
+      </div>
+    </div>
+    <div class="footer-landscape" aria-hidden="true"></div>
+  </section>
+
+  <section class="cta-section is-hidden-section">
+    <div class="cta-section__inner">
+      <div class="cta-section__copy">
+        <h2>Mach deine Adventure-Golf-Anlage digital erlebbar.</h2>
+        <p>
+          Ob Start, Brand oder Premium — wir schauen gemeinsam, welche Lösung zu
+          deiner Anlage, deinem Branding und deinen Gästen passt.
+        </p>
+        <a class="button button--light" href={getContactFormHref("demo")}>
+          Demo anfragen
+        </a>
+        <div class="cta-trust-chips" aria-label="Anfrage Vorteile">
+          <span><i><Icon name="bestaetigt-erledigt" /></i>Unverbindlich</span>
+          <span><i><Icon name="spieler-team" /></i>Persönlich</span>
+          <span><i><Icon name="preise-euro" /></i>Individuelles Angebot</span>
+        </div>
+      </div>
+      <div class="cta-visual" aria-hidden="true">
+        <div class="cta-qr-card">
+          <strong>Scorecard öffnen</strong>
+          <span class="cta-qr-code">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </span>
+          <small>Einfach scannen und loslegen.</small>
+        </div>
+        <img
+          class="cta-mockup-image"
+          src={withBase("/assets/adventure-golf/mockUps/de8385f1-b359-4992-9e05-42ee38710714-cutout.png")}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          width="853"
+          height="1844"
+        />
+        <div class="cta-floating-card">
+          <i><Icon name="golf-anlage" /></i>
+          <strong>Individuell für deine Anlage</strong>
+          <span>Look, Bahnnamen, Farben, Logo & mehr.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontakt" class="section contact-section">
+    <div class="contact-section__inner">
+      <div class="contact-section__copy">
+        <p class="eyebrow">Kontakt</p>
+        <h2>Sprich mit uns über deine Anlage.</h2>
+        <p>
+          Nutze das Formular, wenn du Loopscore testen, ein Paket besprechen
+          oder ein Pilot-Angebot anfragen möchtest.
+        </p>
+      </div>
+
+      <form
+        class="contact-form"
+        data-contact-form
+        data-contact-endpoint={contactFormEndpoint}
+        data-contact-email={contactEmail}
+        data-contact-subject={contactFormSubject}
+      >
+        <label>
+          <span>Name</span>
+          <input name="name" type="text" autocomplete="name" required />
+        </label>
+        <label>
+          <span>Anlage</span>
+          <input name="course" type="text" autocomplete="organization" />
+        </label>
+        <label>
+          <span>E-Mail</span>
+          <input name="email" type="email" autocomplete="email" required />
+        </label>
+        <label>
+          <span>Telefon</span>
+          <input name="phone" type="tel" autocomplete="tel" />
+        </label>
+        <label class="contact-form__wide">
+          <span>Nachricht</span>
+          <textarea name="message" rows="5" required></textarea>
+        </label>
+        <button class="button" type="submit">Nachricht senden</button>
+        <p class="contact-form__status" data-contact-status role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const openFirstFaq = () => {
+    const firstFaq = document.querySelector<HTMLDetailsElement>(".faq-list .faq-item");
+    if (firstFaq) {
+      firstFaq.open = true;
+    }
+  };
+
+  if (window.location.hash === "#faq") {
+    openFirstFaq();
+  }
+
+  document.querySelectorAll<HTMLAnchorElement>('a[href="#faq"]').forEach((link) => {
+    link.addEventListener("click", () => {
+      window.setTimeout(openFirstFaq, 80);
+    });
+  });
+
+  window.addEventListener("hashchange", () => {
+    if (window.location.hash === "#faq") {
+      openFirstFaq();
+    }
+  });
+
+  const initAutoSlider = ({
+    rootSelector,
+    itemSelector,
+    triggerSelector,
+    toggleSelector,
+    toggleName,
+  }: {
+    rootSelector: string;
+    itemSelector: string;
+    triggerSelector: string;
+    toggleSelector: string;
+    toggleName: string;
+  }) => {
+    const root = document.querySelector<HTMLElement>(rootSelector);
+    if (!root) return;
+
+    const triggers = Array.from(root.querySelectorAll<HTMLButtonElement>(triggerSelector));
+    const items = Array.from(root.querySelectorAll<HTMLElement>(itemSelector));
+    const toggle = root.querySelector<HTMLButtonElement>(toggleSelector);
+    let activeIndex = 0;
+    let autoTimer: number | undefined;
+    let isPaused = false;
+
+    const setActiveItem = (nextIndex: number) => {
+      activeIndex = (nextIndex + items.length) % items.length;
+
+      triggers.forEach((trigger, index) => {
+        const isActive = index === activeIndex;
+        trigger.classList.toggle("is-active", isActive);
+        trigger.setAttribute("aria-pressed", String(isActive));
+      });
+
+      items.forEach((item, index) => {
+        const isActive = index === activeIndex;
+        item.hidden = !isActive;
+        item.classList.toggle("is-active", isActive);
+      });
+    };
+
+    const syncToggle = () => {
+      if (!toggle) return;
+      toggle.classList.toggle("is-paused", isPaused);
+      toggle.setAttribute("aria-pressed", String(isPaused));
+      toggle.setAttribute("aria-label", isPaused ? `${toggleName}-Slider starten` : `${toggleName}-Slider pausieren`);
+    };
+
+    const stopAuto = () => {
+      if (autoTimer) {
+        window.clearInterval(autoTimer);
+        autoTimer = undefined;
+      }
+    };
+
+    const startAuto = () => {
+      stopAuto();
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      autoTimer = window.setInterval(() => {
+        setActiveItem(activeIndex + 1);
+      }, 4200);
+    };
+
+    const pauseAuto = () => {
+      isPaused = true;
+      stopAuto();
+      syncToggle();
+    };
+
+    const resumeAuto = () => {
+      isPaused = false;
+      startAuto();
+      syncToggle();
+    };
+
+    triggers.forEach((trigger, index) => {
+      trigger.addEventListener("click", () => {
+        pauseAuto();
+        setActiveItem(index);
+      });
+    });
+
+    root.addEventListener("click", (event) => {
+      if (event.target instanceof HTMLElement && event.target.closest(`${toggleSelector}, ${triggerSelector}`)) {
+        return;
+      }
+
+      pauseAuto();
+    });
+
+    toggle?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (isPaused) {
+        resumeAuto();
+        return;
+      }
+
+      pauseAuto();
+    });
+
+    setActiveItem(0);
+    resumeAuto();
+  };
+
+  initAutoSlider({
+    rootSelector: "[data-journey-slider]",
+    itemSelector: "[data-journey-slide]",
+    triggerSelector: "[data-journey-dot]",
+    toggleSelector: "[data-journey-toggle]",
+    toggleName: "Journey",
+  });
+
+  initAutoSlider({
+    rootSelector: "[data-process-switcher]",
+    itemSelector: "[data-process-card]",
+    triggerSelector: "[data-process-tab]",
+    toggleSelector: "[data-process-toggle]",
+    toggleName: "Ablauf",
+  });
+
+  const contactForm = document.querySelector<HTMLFormElement>("[data-contact-form]");
+
+  if (contactForm) {
+    const contactStatus = contactForm.querySelector<HTMLElement>("[data-contact-status]");
+    const contactSubmit = contactForm.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const messageField = contactForm.querySelector<HTMLTextAreaElement>('textarea[name="message"]');
+    const demoMessages: Record<string, string> = {
+      demo: "Hallo,\n\nich interessiere mich für Loopscore und möchte gerne eine Demo anfragen.\n\nViele Grüße",
+      start: "Hallo,\n\nich interessiere mich für das Start Paket von Loopscore und möchte gerne mehr darüber erfahren.\n\nViele Grüße",
+      brand: "Hallo,\n\nich interessiere mich für das Brand Paket von Loopscore und möchte gerne besprechen, wie die App im Look unserer Anlage aussehen könnte.\n\nViele Grüße",
+      premium: "Hallo,\n\nich interessiere mich für das Premium Paket von Loopscore und möchte gerne über Sponsorenintegration, Erweiterungen und die nächsten Schritte sprechen.\n\nViele Grüße",
+      pilotpartner: "Hallo,\n\nich interessiere mich für das Pilotpartner-Angebot von Loopscore und möchte mich gerne dafür bewerben.\n\nViele Grüße",
+    };
+
+    const setContactStatus = (message: string, status: "idle" | "success" | "error") => {
+      if (!contactStatus) return;
+      contactStatus.textContent = message;
+      contactStatus.dataset.status = status;
+    };
+
+    const fillDemoMessage = () => {
+      const params = new URLSearchParams(window.location.search);
+      const requestType = params.get("anfrage") ?? "demo";
+      const message = demoMessages[requestType];
+      if (!message || !messageField) return;
+      if (!messageField.value.trim()) {
+        messageField.value = message;
+      }
+      window.setTimeout(() => {
+        messageField.focus({ preventScroll: true });
+      }, 180);
+    };
+
+    fillDemoMessage();
+    window.addEventListener("hashchange", fillDemoMessage);
+
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      if (!contactForm.reportValidity()) return;
+
+      const formData = new FormData(contactForm);
+      const endpoint = contactForm.dataset.contactEndpoint ?? "";
+
+      contactSubmit?.setAttribute("disabled", "true");
+      setContactStatus("Nachricht wird gesendet ...", "idle");
+
+      fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.get("name") ?? "",
+          course: formData.get("course") ?? "",
+          email: formData.get("email") ?? "",
+          phone: formData.get("phone") ?? "",
+          message: formData.get("message") ?? "",
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("contact-request-failed");
+          }
+
+          contactForm.reset();
+          setContactStatus("Danke. Deine Nachricht wurde verschickt.", "success");
+        })
+        .catch(() => {
+          const fallbackEmail = contactForm.dataset.contactEmail ?? "chris@loopscore.app";
+          const fallbackSubject = contactForm.dataset.contactSubject ?? "Neue Anfrage";
+          const fallbackBody = [
+            `Name: ${formData.get("name") ?? ""}`,
+            `Anlage: ${formData.get("course") ?? ""}`,
+            `E-Mail: ${formData.get("email") ?? ""}`,
+            `Telefon: ${formData.get("phone") ?? ""}`,
+            "",
+            "Nachricht:",
+            `${formData.get("message") ?? ""}`,
+          ].join("\n");
+
+          setContactStatus(
+            `Das direkte Senden hat nicht geklappt. Bitte schreibe an ${fallbackEmail}.`,
+            "error",
+          );
+
+          window.setTimeout(() => {
+            window.location.href = `mailto:${fallbackEmail}?subject=${encodeURIComponent(fallbackSubject)}&body=${encodeURIComponent(fallbackBody)}`;
+          }, 900);
+        })
+        .finally(() => {
+          contactSubmit?.removeAttribute("disabled");
+        });
+    });
+  }
+</script>

@@ -1,0 +1,154 @@
+---
+import { withBase } from "../lib/paths";
+import { getContactFormHref } from "../lib/contact";
+
+const navItems = [
+  { href: "#vorteile", label: "Produkt" },
+  { href: "#runde", label: "So geht's" },
+  { href: "#pakete", label: "Pakete" },
+  { href: "#pilot-werden", label: "Pilot werden" },
+  { href: "#ablauf", label: "4 Schritte" },
+  { href: "#faq", label: "FAQ" },
+  { href: "#kontakt", label: "Kontakt" },
+];
+
+const normalizedPath = Astro.url.pathname.replace(import.meta.env.BASE_URL, "/");
+const isHomePage = normalizedPath === "/";
+const homeLink = isHomePage ? "#top" : withBase("/");
+const getNavHref = (href: string) => (isHomePage ? href : withBase(`/${href}`));
+const demoFormHref = isHomePage ? "?anfrage=demo#kontakt" : withBase(getContactFormHref("demo"));
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand brand--wordmark" href={homeLink} aria-label="Loopscore Startseite">
+      <span class="brand__wordmark" aria-hidden="true">
+        <span>Loop</span><span>score</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="Hauptnavigation">
+      {navItems.map((item) => <a href={getNavHref(item.href)} data-nav-link>{item.label}</a>)}
+    </nav>
+
+    <a class="button button--small" href={demoFormHref} data-demo-cta>Demo anfragen</a>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="Menü öffnen"
+      aria-expanded="false"
+      data-menu-toggle
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile Navigation" data-mobile-nav>
+    {navItems.map((item) => <a href={getNavHref(item.href)} data-nav-link>{item.label}</a>)}
+    <a class="button button--small" href={demoFormHref} data-demo-cta>Demo anfragen</a>
+  </nav>
+
+  <script>
+    const toggle = document.querySelector("[data-menu-toggle]");
+    const mobileNav = document.querySelector("[data-mobile-nav]");
+    const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]"));
+    const demoCtas = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-demo-cta]"));
+    const navTargets = navLinks
+      .map((link) => {
+        const id = link.hash.slice(1);
+        const target = document.getElementById(id);
+        return target ? { id, target } : null;
+      })
+      .filter((item): item is { id: string; target: HTMLElement } => Boolean(item));
+
+    const setActiveNav = (activeId: string | null) => {
+      navLinks.forEach((link) => {
+        const isActive = activeId !== null && link.hash === `#${activeId}`;
+        link.classList.toggle("is-active", isActive);
+
+        if (isActive) {
+          link.setAttribute("aria-current", "true");
+          return;
+        }
+
+        link.removeAttribute("aria-current");
+      });
+    };
+
+    const setDemoActive = (isActive: boolean) => {
+      demoCtas.forEach((cta) => {
+        cta.classList.toggle("is-active", isActive);
+
+        if (isActive) {
+          cta.setAttribute("aria-current", "true");
+          return;
+        }
+
+        cta.removeAttribute("aria-current");
+      });
+    };
+
+    const updateActiveNav = () => {
+      const headerOffset = 118;
+      const marker = window.scrollY + headerOffset;
+      const footer = document.querySelector<HTMLElement>(".site-footer");
+      const footerRect = footer?.getBoundingClientRect();
+      const isNearPageBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 8;
+      const isFooterActive = Boolean(
+        footerRect && footerRect.top <= window.innerHeight * 0.72 && footerRect.bottom > 0,
+      ) || isNearPageBottom;
+      let activeId: string | null = null;
+
+      if (isFooterActive) {
+        setActiveNav(null);
+        setDemoActive(true);
+        return;
+      }
+
+      setDemoActive(false);
+
+      navTargets.forEach(({ id, target }) => {
+        const top = target.getBoundingClientRect().top + window.scrollY;
+
+        if (top <= marker) {
+          activeId = id;
+        }
+      });
+
+      setActiveNav(activeId);
+    };
+
+    if (navTargets.length > 0) {
+      updateActiveNav();
+      window.addEventListener("scroll", updateActiveNav, { passive: true });
+      window.addEventListener("resize", updateActiveNav);
+      window.addEventListener("hashchange", updateActiveNav);
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          window.setTimeout(updateActiveNav, 120);
+        });
+      });
+    }
+
+    if (toggle && mobileNav) {
+      const closeMenu = () => {
+        mobileNav.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Menü öffnen");
+      };
+
+      toggle.addEventListener("click", () => {
+        const isOpen = mobileNav.classList.toggle("is-open");
+        toggle.setAttribute("aria-expanded", String(isOpen));
+        toggle.setAttribute("aria-label", isOpen ? "Menü schließen" : "Menü öffnen");
+      });
+
+      mobileNav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", closeMenu);
+      });
+    }
+  </script>
+</header>

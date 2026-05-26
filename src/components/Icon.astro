@@ -1,0 +1,18 @@
+---
+interface Props {
+  name: string;
+  class?: string;
+  alt?: string;
+}
+
+import { withBase } from "../lib/paths";
+
+const { name, class: className, alt = "" } = Astro.props as Props;
+---
+
+<img
+  class:list={["site-icon", className]}
+  src={withBase(`/assets/adventure-golf/icons/svg/${name}.svg`)}
+  alt={alt}
+  loading="lazy"
+/>

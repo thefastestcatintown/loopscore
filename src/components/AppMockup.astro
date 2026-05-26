@@ -1,0 +1,250 @@
+---
+interface Props {
+  compact?: boolean;
+}
+
+import { withBase } from "../lib/paths";
+
+const { compact = false } = Astro.props as Props;
+
+const heroAssetPath = withBase("/res/adventure-golf-hero-assets");
+const mockupPath = withBase("/res/mockup");
+
+const slides = [
+  {
+    id: "start",
+    src: `${mockupPath}/mock1.png`,
+    mobileSrc: `${mockupPath}/screenshots/start.jpg`,
+    alt: "Loopscore App Startbildschirm",
+    width: 1419,
+    height: 2796,
+  },
+  {
+    id: "bahn",
+    src: `${mockupPath}/mock2.png`,
+    mobileSrc: `${mockupPath}/screenshots/bahnDetail.jpg`,
+    alt: "Loopscore App Bahndetail",
+    width: 1419,
+    height: 2796,
+  },
+  {
+    id: "score",
+    src: `${mockupPath}/mock3.png`,
+    mobileSrc: `${mockupPath}/screenshots/score.jpg`,
+    alt: "Loopscore App Scorecard",
+    width: 1419,
+    height: 2796,
+  },
+];
+---
+
+<div class:list={["hero-phones", "hero-carousel", compact && "hero-phones--compact"]} data-hero-carousel>
+  {!compact && (
+    <>
+      <img
+        class="hero-phones__blob"
+        src={`${heroAssetPath}/hero-background-blob.svg`}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+      />
+      <img
+        class="hero-phones__dots"
+        src={`${heroAssetPath}/dot-pattern.svg`}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+      />
+    </>
+  )}
+
+  <div class="hero-carousel__stage" aria-live="polite" data-hero-stage>
+    {
+      slides.map((slide, index) => (
+        <picture
+          class="hero-carousel__phone"
+          data-hero-slide
+          data-slide-id={slide.id}
+          data-state={index === 0 ? "active" : index === 1 ? "right" : "left"}
+        >
+          <source media="(max-width: 759px)" srcset={slide.mobileSrc} />
+          <img
+            src={slide.src}
+            alt={slide.alt}
+            width={slide.width}
+            height={slide.height}
+            loading={compact || index > 0 ? "lazy" : "eager"}
+            fetchpriority={!compact && index === 0 ? "high" : "auto"}
+            decoding="async"
+          />
+        </picture>
+      ))
+    }
+    <button
+      class="hero-carousel__hit-zone hero-carousel__hit-zone--left"
+      type="button"
+      data-hero-hit="left"
+      aria-label="Linkes Smartphone nach vorne drehen"
+    ></button>
+    <button
+      class="hero-carousel__hit-zone hero-carousel__hit-zone--active"
+      type="button"
+      data-hero-hit="active"
+      aria-label="Nächstes Smartphone nach vorne drehen"
+    ></button>
+    <button
+      class="hero-carousel__hit-zone hero-carousel__hit-zone--right"
+      type="button"
+      data-hero-hit="right"
+      aria-label="Rechtes Smartphone nach vorne drehen"
+    ></button>
+  </div>
+
+  <div class="hero-carousel__dots" aria-label="Mockup auswählen">
+    {
+      slides.map((slide, index) => (
+        <button
+          type="button"
+          class:list={[index === 0 && "is-active"]}
+          data-hero-pill={slide.id}
+          aria-pressed={index === 0 ? "true" : "false"}
+          aria-label={`Mockup ${index + 1} anzeigen`}
+        >
+          <span aria-hidden="true"></span>
+        </button>
+      ))
+    }
+    <button
+      class="slider-toggle"
+      type="button"
+      data-hero-toggle
+      aria-pressed="false"
+      aria-label="Mockup-Slider pausieren"
+    >
+      <span class="slider-toggle__pause" aria-hidden="true"></span>
+      <span class="slider-toggle__play" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>
+
+<script>
+  const carousel = document.querySelector<HTMLElement>("[data-hero-carousel]");
+
+  if (carousel) {
+
+  const slides = Array.from(carousel.querySelectorAll<HTMLElement>("[data-hero-slide]"));
+  const hitZones = Array.from(carousel.querySelectorAll<HTMLButtonElement>("[data-hero-hit]"));
+  const pills = Array.from(carousel.querySelectorAll<HTMLButtonElement>("[data-hero-pill]"));
+  const toggle = carousel.querySelector<HTMLButtonElement>("[data-hero-toggle]");
+  const order = slides.map((slide) => slide.dataset.slideId ?? "");
+  let activeIndex = 0;
+  let autoTimer: number | undefined;
+  let isPaused = false;
+
+  const setActive = (nextIndex: number) => {
+    activeIndex = (nextIndex + order.length) % order.length;
+    const activeId = order[activeIndex];
+
+    slides.forEach((slide) => {
+      const slideIndex = order.indexOf(slide.dataset.slideId ?? "");
+      const offset = (slideIndex - activeIndex + order.length) % order.length;
+      slide.dataset.state = offset === 0 ? "active" : offset === 1 ? "right" : "left";
+    });
+
+    pills.forEach((pill) => {
+      const isActive = pill.dataset.heroPill === activeId;
+      pill.classList.toggle("is-active", isActive);
+      pill.setAttribute("aria-pressed", String(isActive));
+    });
+  };
+
+  const syncToggle = () => {
+    if (!toggle) return;
+    toggle.classList.toggle("is-paused", isPaused);
+    toggle.setAttribute("aria-pressed", String(isPaused));
+    toggle.setAttribute("aria-label", isPaused ? "Mockup-Slider starten" : "Mockup-Slider pausieren");
+  };
+
+  const stopAuto = () => {
+    if (autoTimer) {
+      window.clearInterval(autoTimer);
+      autoTimer = undefined;
+    }
+  };
+
+  const startAuto = () => {
+    stopAuto();
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    autoTimer = window.setInterval(() => {
+      setActive(activeIndex + 1);
+    }, 4200);
+  };
+
+  const pauseAuto = () => {
+    isPaused = true;
+    stopAuto();
+    syncToggle();
+  };
+
+  const resumeAuto = () => {
+    isPaused = false;
+    startAuto();
+    syncToggle();
+  };
+
+  pills.forEach((pill, index) => {
+    pill.addEventListener("click", () => {
+      pauseAuto();
+      setActive(index);
+    });
+  });
+
+  const activateSlideElement = (slide: HTMLElement) => {
+    const slideIndex = order.indexOf(slide.dataset.slideId ?? "");
+    if (slideIndex < 0) return;
+    pauseAuto();
+    setActive(slideIndex === activeIndex ? activeIndex + 1 : slideIndex);
+  };
+
+  const activateByZone = (zone: string) => {
+    const leftSlide = slides.find((slide) => slide.dataset.state === "left");
+    const rightSlide = slides.find((slide) => slide.dataset.state === "right");
+    const activeSlide = slides.find((slide) => slide.dataset.state === "active");
+
+    if (zone === "left" && leftSlide) {
+      activateSlideElement(leftSlide);
+      return;
+    }
+
+    if (zone === "right" && rightSlide) {
+      activateSlideElement(rightSlide);
+      return;
+    }
+
+    if (activeSlide) {
+      activateSlideElement(activeSlide);
+    }
+  };
+
+  hitZones.forEach((zone) => {
+    zone.addEventListener("click", () => {
+      activateByZone(zone.dataset.heroHit ?? "active");
+    });
+  });
+
+  toggle?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    if (isPaused) {
+      resumeAuto();
+      return;
+    }
+
+    pauseAuto();
+  });
+
+    setActive(0);
+    resumeAuto();
+  }
+</script>

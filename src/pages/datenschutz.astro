@@ -1,0 +1,89 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { contactEmail } from "../lib/contact";
+---
+
+<BaseLayout
+  title="Datenschutz | Loopscore"
+  description="Datenschutzhinweise der Marketing-Webseite für die digitale Adventure-Golf-Scorecard."
+>
+  <section class="legal-page">
+    <p class="eyebrow">Datenschutz</p>
+    <h1>Datenschutzerklärung</h1>
+
+    <div class="legal-card">
+      <p>
+        Diese Datenschutzerklärung informiert über die Verarbeitung
+        personenbezogener Daten auf dieser Marketing-Webseite für die digitale
+        Adventure-Golf-Scorecard.
+      </p>
+
+      <h2>Verantwortlicher</h2>
+      <p>
+        Christopher Eschenbecher<br />
+        Görlitzer Straße 43<br />
+        10997 Berlin<br />
+        Deutschland<br />
+        E-Mail:
+        <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+      </p>
+
+      <h2>Zugriffsdaten</h2>
+      <p>
+        Beim Aufruf der Webseite können technisch notwendige Zugriffsdaten
+        verarbeitet werden, zum Beispiel IP-Adresse, Datum und Uhrzeit des
+        Zugriffs, angeforderte Dateien, Browsertyp und Betriebssystem. Diese
+        Daten dienen der technischen Bereitstellung, Stabilität und Sicherheit
+        der Webseite.
+      </p>
+
+      <h2>Kontaktaufnahme</h2>
+      <p>
+        Wenn du per E-Mail oder über das Kontaktformular Kontakt aufnimmst,
+        werden die von dir übermittelten Angaben verarbeitet, um deine Anfrage
+        zu beantworten. Das Kontaktformular übermittelt die Angaben an eine
+        Firebase Cloud Function, die daraus eine E-Mail an uns erstellt. Die
+        Daten werden nicht ohne deine Einwilligung an Dritte weitergegeben.
+      </p>
+
+      <h2>Cookies und Analyse</h2>
+      <p>
+        Diese Webseite setzt keine Analyse-Cookies und keine Werbenetzwerke ein.
+        Zur datenschutzfreundlichen Reichweitenmessung kann Cloudflare Web
+        Analytics verwendet werden. Der Dienst misst Seitenaufrufe,
+        Verweisquellen, grobe Standortinformationen auf Länderebene,
+        Browser- und Geräteinformationen sowie Web-Vitals, ohne Cookies oder
+        vergleichbare clientseitige Speichertechniken zu verwenden.
+      </p>
+      <p>
+        Anbieter ist Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107,
+        USA. Die Verarbeitung erfolgt, um die Nutzung und technische Qualität
+        der Webseite zu verstehen und zu verbessern. Cloudflare gibt an, für Web
+        Analytics keine personenbezogenen Daten der Besucher zu erheben und
+        keine Besucherprofile zu Werbezwecken zu erstellen.
+      </p>
+
+      <h2>Hosting</h2>
+      <p>
+        Die Webseite wird als statische Astro-Webseite vorbereitet. Je nach
+        späterem Hosting-Anbieter können beim Betrieb technisch notwendige
+        Server-Logdaten entstehen. Die konkreten Angaben zum Hosting sollten vor
+        Veröffentlichung ergänzt werden.
+      </p>
+
+      <h2>Rechte betroffener Personen</h2>
+      <p>
+        Du hast im Rahmen der gesetzlichen Vorgaben das Recht auf Auskunft,
+        Berichtigung, Löschung, Einschränkung der Verarbeitung,
+        Datenübertragbarkeit sowie Widerspruch gegen bestimmte Verarbeitungen.
+      </p>
+
+      <h2>Hinweis</h2>
+      <p>
+        Diese Datenschutzerklärung ist eine erste Arbeitsversion und ersetzt
+        keine rechtliche Prüfung. Bitte vor Veröffentlichung final prüfen und um
+        konkrete Hosting- und Anbieterangaben ergänzen.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

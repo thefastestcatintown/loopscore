@@ -1,0 +1,38 @@
+---
+import { withBase } from "../lib/paths";
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__top">
+      <div class="site-footer__brand-area">
+        <a class="brand brand--footer" href={withBase("/")} aria-label="Loopscore Startseite">
+          <img
+            class="brand__footer-logo"
+            src={withBase("/assets/adventure-golf/logo/logo-512.png")}
+            alt="Loopscore"
+            width="512"
+            height="341"
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
+        <p>
+          Digitale Scorecard-Lösungen für moderne Adventure-Golf-Anlagen.
+        </p>
+      </div>
+
+      <nav class="site-footer__nav" aria-label="Footer Navigation">
+        <ul>
+          <li><a href={withBase("/#kontakt")}>Kontakt</a></li>
+          <li><a href={withBase("/impressum/")}>Impressum</a></li>
+          <li><a href={withBase("/datenschutz/")}>Datenschutz</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>© 2026 Loopscore. Alle Rechte vorbehalten.</p>
+    </div>
+  </div>
+</footer>

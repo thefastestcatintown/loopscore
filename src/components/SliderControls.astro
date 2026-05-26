@@ -1,0 +1,49 @@
+---
+interface Props {
+  items: Array<{ label?: string; title?: string }>;
+  activeIndex?: number;
+  className: string;
+  dotAttribute: string;
+  toggleAttribute: string;
+  label: string;
+  toggleLabel: string;
+  itemLabel: (item: { label?: string; title?: string }, index: number) => string;
+}
+
+const {
+  items,
+  activeIndex = 0,
+  className,
+  dotAttribute,
+  toggleAttribute,
+  label,
+  toggleLabel,
+  itemLabel,
+} = Astro.props as Props;
+---
+
+<div class={className} aria-label={label}>
+  {
+    items.map((item, index) => (
+      <button
+        type="button"
+        class:list={[index === activeIndex && "is-active"]}
+        {...{ [dotAttribute]: String(index) }}
+        aria-pressed={index === activeIndex ? "true" : "false"}
+        aria-label={itemLabel(item, index)}
+      >
+        <span aria-hidden="true"></span>
+      </button>
+    ))
+  }
+  <button
+    class="slider-toggle"
+    type="button"
+    {...{ [toggleAttribute]: true }}
+    aria-pressed="false"
+    aria-label={toggleLabel}
+  >
+    <span class="slider-toggle__pause" aria-hidden="true"></span>
+    <span class="slider-toggle__play" aria-hidden="true"></span>
+  </button>
+</div>

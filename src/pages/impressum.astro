@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { contactEmail } from "../lib/contact";
+---
+
+<BaseLayout
+  title="Impressum | Loopscore"
+  description="Impressum der Marketing-Webseite für die digitale Adventure-Golf-Scorecard."
+>
+  <section class="legal-page">
+    <p class="eyebrow">Rechtliches</p>
+    <h1>Impressum</h1>
+
+    <div class="legal-card">
+      <h2>Angaben gemäß § 5 DDG</h2>
+      <p>
+        Christopher Eschenbecher<br />
+        Görlitzer Straße 43<br />
+        10997 Berlin<br />
+        Deutschland
+      </p>
+
+      <h2>Kontakt</h2>
+      <p>
+        E-Mail:
+        <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+      </p>
+
+      <h2>Hinweis</h2>
+      <p>
+        Diese Impressumsseite ist als erste Arbeitsversion angelegt. Bitte vor
+        Veröffentlichung rechtlich final prüfen.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

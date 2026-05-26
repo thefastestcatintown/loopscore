@@ -1,0 +1,33 @@
+---
+interface Props {
+  question: string;
+  answer: string;
+  open?: boolean;
+}
+
+const { question, answer, open = false } = Astro.props as Props;
+---
+
+<details class="faq-item" name="faq" open={open}>
+  <summary>
+    <span class="faq-item__icon" aria-hidden="true"></span>
+    <span>{question}</span>
+  </summary>
+  <div class="faq-item__answer">
+    <p>{answer}</p>
+  </div>
+</details>
+
+<script>
+  document.querySelectorAll<HTMLDetailsElement>(".faq-item").forEach((item) => {
+    item.addEventListener("toggle", () => {
+      if (!item.open) return;
+
+      document.querySelectorAll<HTMLDetailsElement>(".faq-item").forEach((other) => {
+        if (other !== item) {
+          other.open = false;
+        }
+      });
+    });
+  });
+</script>
