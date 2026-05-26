@@ -64,17 +64,18 @@ export const packages = [
 ];
 
 export const pilotPartnerCta = {
-  badge: "LIMITIERT",
-  title: "Werde Pilot Partner",
-  text: "Für die ersten 3 Partneranlagen bieten wir ein vergünstigtes Pilot-Setup an. Gemeinsam testen wir Loopscore vor Ort und stimmen die App direkt auf eure Anlage ab.",
-  buttonLabel: "Jetzt bewerben",
+  badge: "14 TAGE TEST",
+  title: "Digitale Scorecard 14 Tage unverbindlich testen",
+  text: "LoopScore kann 14 Tage lang einfach als zusätzliche Option neben der klassischen Papier-Scorecard ausprobiert werden - ohne Umstellung eurer bestehenden Abläufe.",
+  buttonLabel: "Kurz austauschen",
+  secondaryButtonLabel: "Demo ansehen",
   image: "/assets/adventure-golf/pilot/pilot-cutout.png",
   imageAlt: "Illustration eines kleinen Pilot-Flugzeugs",
   bullets: [
-    "Einrichtung ab 990 € möglich",
-    "Persönliches Onboarding",
-    "Individuelles Anlagen-Setup",
-    "Feedback fließt direkt in die Entwicklung ein",
+    "QR-Code für Gäste",
+    "Individuelle Bahnen",
+    "Kein App-Zwang",
+    "Feedback aus dem Spielbetrieb",
   ],
 };
 
@@ -97,12 +98,12 @@ export const faqs = [
   {
     question: "Welche Kosten entstehen?",
     answer:
-      "Es gibt eine einmalige Einrichtung und monatliche Betriebskosten. Aktuell gibt es die Pakete Start, Brand und Premium sowie ein individuelles Pilotpartner-Angebot.",
+      "Es gibt eine einmalige Einrichtung und monatliche Betriebskosten. Vor einer Entscheidung kann Loopscore unverbindlich als zusätzliche Option neben der Papier-Scorecard getestet werden.",
   },
   {
-    question: "Was ist das Pilotpartner-Angebot?",
+    question: "Wie funktioniert der unverbindliche Praxistest?",
     answer:
-      "Das Pilotpartner-Angebot richtet sich an ausgewählte Anlagen, die früh starten möchten. Ihr bekommt ein vergünstigtes Setup, persönliches Onboarding und die Möglichkeit, Feedback direkt in die Weiterentwicklung einfließen zu lassen.",
+      "Ihr könnt Loopscore zunächst mit QR-Code, euren Bahnen und Feedback aus dem Spielbetrieb ausprobieren, ohne bestehende Abläufe umzustellen.",
   },
   {
     question: "Kann die App später erweitert werden?",

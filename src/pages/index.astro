@@ -25,6 +25,8 @@ import {
 } from "../lib/contact";
 import { withBase } from "../lib/paths";
 
+const showPackageCards = false;
+
 ---
 
 <BaseLayout>
@@ -195,12 +197,18 @@ import { withBase } from "../lib/paths";
   </section>
 
   <section id="pakete" class="section package-section">
-    <SectionIntro
-      title="Drei Einstiege, passend zu deiner Anlage."
-    />
-    <div class="package-grid">
-      {packages.map((item) => <PackageCard {...item} />)}
-    </div>
+    {
+      showPackageCards && (
+        <>
+          <SectionIntro
+            title="Drei Einstiege, passend zu deiner Anlage."
+          />
+          <div class="package-grid">
+            {packages.map((item) => <PackageCard {...item} />)}
+          </div>
+        </>
+      )
+    }
     <article id="pilot-werden" class="pilot-partner-card">
       <div class="pilot-partner-card__content">
         <span class="pilot-partner-card__badge">★ {pilotPartnerCta.badge}</span>
@@ -211,9 +219,14 @@ import { withBase } from "../lib/paths";
         <ul class="pilot-partner-card__list">
           {pilotPartnerCta.bullets.map((bullet) => <li>{bullet}</li>)}
         </ul>
-        <a class="button button--outline" href={getContactFormHref("pilotpartner")}>
-          {pilotPartnerCta.buttonLabel}
-        </a>
+        <div class="pilot-partner-card__actions">
+          <a class="button" href={getContactFormHref("pilotpartner")}>
+            {pilotPartnerCta.buttonLabel}
+          </a>
+          <a class="button button--pilot-secondary" href={getContactFormHref("demo")}>
+            {pilotPartnerCta.secondaryButtonLabel}
+          </a>
+        </div>
       </div>
       <figure class="pilot-partner-card__visual" aria-hidden="true">
         <img
@@ -226,11 +239,15 @@ import { withBase } from "../lib/paths";
         />
       </figure>
     </article>
-    <p class="package-note">
-      Alle Pakete werden individuell auf Anlage, Umfang und gewünschte
-      Anpassungen abgestimmt. Preise verstehen sich zzgl. MwSt. und können je
-      nach gewünschtem Umfang variieren.
-    </p>
+    {
+      showPackageCards && (
+        <p class="package-note">
+          Alle Pakete werden individuell auf Anlage, Umfang und gewünschte
+          Anpassungen abgestimmt. Preise verstehen sich zzgl. MwSt. und können je
+          nach gewünschtem Umfang variieren.
+        </p>
+      )
+    }
   </section>
 
   <section id="ablauf-original" class="section section--muted is-hidden-section">
@@ -388,8 +405,8 @@ import { withBase } from "../lib/paths";
         <p class="eyebrow">Kontakt</p>
         <h2>Sprich mit uns über deine Anlage.</h2>
         <p>
-          Nutze das Formular, wenn du Loopscore testen, ein Paket besprechen
-          oder ein Pilot-Angebot anfragen möchtest.
+          Nutze das Formular, wenn du Loopscore testen, eine Demo ansehen
+          oder einen unverbindlichen Praxistest besprechen möchtest.
         </p>
       </div>
 
@@ -580,7 +597,7 @@ import { withBase } from "../lib/paths";
       start: "Hallo,\n\nich interessiere mich für das Start Paket von Loopscore und möchte gerne mehr darüber erfahren.\n\nViele Grüße",
       brand: "Hallo,\n\nich interessiere mich für das Brand Paket von Loopscore und möchte gerne besprechen, wie die App im Look unserer Anlage aussehen könnte.\n\nViele Grüße",
       premium: "Hallo,\n\nich interessiere mich für das Premium Paket von Loopscore und möchte gerne über Sponsorenintegration, Erweiterungen und die nächsten Schritte sprechen.\n\nViele Grüße",
-      pilotpartner: "Hallo,\n\nich interessiere mich für das Pilotpartner-Angebot von Loopscore und möchte mich gerne dafür bewerben.\n\nViele Grüße",
+      pilotpartner: "Hallo,\n\nich interessiere mich dafür, Loopscore 14 Tage unverbindlich als zusätzliche Option neben unserer Papier-Scorecard zu testen.\n\nViele Grüße",
     };
 
     const setContactStatus = (message: string, status: "idle" | "success" | "error") => {
