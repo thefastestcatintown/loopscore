@@ -16,6 +16,7 @@ interface Props {
   description?: string;
   image?: string;
   noindex?: boolean;
+  showPackageNav?: boolean;
 }
 
 const {
@@ -23,6 +24,7 @@ const {
   description = defaultDescription,
   image = defaultOgImage,
   noindex = false,
+  showPackageNav = true,
 } = Astro.props as Props;
 
 const cloudflareAnalyticsToken = import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN;
@@ -110,7 +112,7 @@ const cssImageVarStyles = `
     <title>{title}</title>
   </head>
   <body>
-    <SiteHeader />
+    <SiteHeader showPackageNav={showPackageNav} />
     <main>
       <slot />
     </main>

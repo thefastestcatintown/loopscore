@@ -2,15 +2,21 @@
 import { withBase } from "../lib/paths";
 import { getContactFormHref } from "../lib/contact";
 
+interface Props {
+  showPackageNav?: boolean;
+}
+
+const { showPackageNav = true } = Astro.props as Props;
+
 const navItems = [
   { href: "#vorteile", label: "Produkt" },
   { href: "#runde", label: "So geht's" },
-  { href: "#pakete", label: "Pakete" },
+  showPackageNav && { href: "#pakete", label: "Pakete" },
   { href: "#pilot-werden", label: "Praxistest" },
   { href: "#ablauf", label: "4 Schritte" },
   { href: "#faq", label: "FAQ" },
   { href: "#kontakt", label: "Kontakt" },
-];
+].filter((item): item is { href: string; label: string } => Boolean(item));
 
 const normalizedPath = Astro.url.pathname.replace(import.meta.env.BASE_URL, "/");
 const isHomePage = normalizedPath === "/";
