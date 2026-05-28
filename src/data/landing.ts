@@ -66,15 +66,14 @@ export const packages = [
 export const pilotPartnerCta = {
   badge: "14 TAGE TEST",
   title: "Digitale Scorecard 14 Tage unverbindlich testen",
-  text: "LoopScore kann 14 Tage lang einfach als zusätzliche Option neben der klassischen Papier-Scorecard ausprobiert werden - ohne Umstellung eurer bestehenden Abläufe.",
-  buttonLabel: "Kurz austauschen",
-  secondaryButtonLabel: "Demo ansehen",
+  text: "LoopScore kann 14 Tage lang parallel zur Papier-Scorecard getestet werden – ganz ohne Umstellung oder Risiko für euren laufenden Betrieb.",
+  buttonLabel: "Jetzt austauschen",
+  // Demo ansehen Button entfernt
   image: "/assets/adventure-golf/pilot/pilot-cutout.png",
   imageAlt: "Illustration eines kleinen Pilot-Flugzeugs",
   bullets: [
     "QR-Code für Gäste",
     "Individuelle Bahnen",
-    "Kein App-Zwang",
     "Feedback aus dem Spielbetrieb",
   ],
 };
